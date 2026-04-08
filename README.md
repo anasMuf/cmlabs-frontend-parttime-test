@@ -1,5 +1,7 @@
 # 🍜 MealApp - Front-End Developer Practical Test
 
+🌍 **Live Demo:** [https://mealappcmlabsparttimeanas.netlify.app/](https://mealappcmlabsparttimeanas.netlify.app/)
+
 Project ini adalah hasil pengerjaan **Front-End Developer Practical Test** yang mendemonstrasikan kemampuan dalam membangun aplikasi web berbasis **React (TanStack Start)** dengan fokus pada performa (SSR), struktur kode atomik, dan antarmuka yang responsif.
 
 ---
