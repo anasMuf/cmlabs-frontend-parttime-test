@@ -18,7 +18,13 @@ function IngredientContent({
 	searchQuery: string;
 }) {
 	const { data: meals } = useMealsByIngredient(ingredientName);
-	return <MealGrid meals={meals} searchQuery={searchQuery} />;
+	return (
+		<MealGrid
+			meals={meals}
+			searchQuery={searchQuery}
+			ingredientName={ingredientName}
+		/>
+	);
 }
 
 export default function IngredientDetailView({

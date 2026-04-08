@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as IngredientsIndexRouteImport } from './routes/ingredients/index'
-import { Route as MealsMealIdRouteImport } from './routes/meals/$mealId'
-import { Route as IngredientsIngredientNameRouteImport } from './routes/ingredients/$ingredientName'
+import { Route as IngredientsIngredientNameIndexRouteImport } from './routes/ingredients/$ingredientName/index'
+import { Route as IngredientsIngredientNameMealsMealIdRouteImport } from './routes/ingredients/$ingredientName/meals/$mealId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,59 +24,64 @@ const IngredientsIndexRoute = IngredientsIndexRouteImport.update({
   path: '/ingredients/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MealsMealIdRoute = MealsMealIdRouteImport.update({
-  id: '/meals/$mealId',
-  path: '/meals/$mealId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IngredientsIngredientNameRoute =
-  IngredientsIngredientNameRouteImport.update({
-    id: '/ingredients/$ingredientName',
-    path: '/ingredients/$ingredientName',
+const IngredientsIngredientNameIndexRoute =
+  IngredientsIngredientNameIndexRouteImport.update({
+    id: '/ingredients/$ingredientName/',
+    path: '/ingredients/$ingredientName/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const IngredientsIngredientNameMealsMealIdRoute =
+  IngredientsIngredientNameMealsMealIdRouteImport.update({
+    id: '/ingredients/$ingredientName/meals/$mealId',
+    path: '/ingredients/$ingredientName/meals/$mealId',
     getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/ingredients/$ingredientName': typeof IngredientsIngredientNameRoute
-  '/meals/$mealId': typeof MealsMealIdRoute
   '/ingredients/': typeof IngredientsIndexRoute
+  '/ingredients/$ingredientName/': typeof IngredientsIngredientNameIndexRoute
+  '/ingredients/$ingredientName/meals/$mealId': typeof IngredientsIngredientNameMealsMealIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/ingredients/$ingredientName': typeof IngredientsIngredientNameRoute
-  '/meals/$mealId': typeof MealsMealIdRoute
   '/ingredients': typeof IngredientsIndexRoute
+  '/ingredients/$ingredientName': typeof IngredientsIngredientNameIndexRoute
+  '/ingredients/$ingredientName/meals/$mealId': typeof IngredientsIngredientNameMealsMealIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/ingredients/$ingredientName': typeof IngredientsIngredientNameRoute
-  '/meals/$mealId': typeof MealsMealIdRoute
   '/ingredients/': typeof IngredientsIndexRoute
+  '/ingredients/$ingredientName/': typeof IngredientsIngredientNameIndexRoute
+  '/ingredients/$ingredientName/meals/$mealId': typeof IngredientsIngredientNameMealsMealIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/ingredients/$ingredientName'
-    | '/meals/$mealId'
     | '/ingredients/'
+    | '/ingredients/$ingredientName/'
+    | '/ingredients/$ingredientName/meals/$mealId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ingredients/$ingredientName' | '/meals/$mealId' | '/ingredients'
+  to:
+    | '/'
+    | '/ingredients'
+    | '/ingredients/$ingredientName'
+    | '/ingredients/$ingredientName/meals/$mealId'
   id:
     | '__root__'
     | '/'
-    | '/ingredients/$ingredientName'
-    | '/meals/$mealId'
     | '/ingredients/'
+    | '/ingredients/$ingredientName/'
+    | '/ingredients/$ingredientName/meals/$mealId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  IngredientsIngredientNameRoute: typeof IngredientsIngredientNameRoute
-  MealsMealIdRoute: typeof MealsMealIdRoute
   IngredientsIndexRoute: typeof IngredientsIndexRoute
+  IngredientsIngredientNameIndexRoute: typeof IngredientsIngredientNameIndexRoute
+  IngredientsIngredientNameMealsMealIdRoute: typeof IngredientsIngredientNameMealsMealIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -95,18 +100,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IngredientsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/meals/$mealId': {
-      id: '/meals/$mealId'
-      path: '/meals/$mealId'
-      fullPath: '/meals/$mealId'
-      preLoaderRoute: typeof MealsMealIdRouteImport
+    '/ingredients/$ingredientName/': {
+      id: '/ingredients/$ingredientName/'
+      path: '/ingredients/$ingredientName'
+      fullPath: '/ingredients/$ingredientName/'
+      preLoaderRoute: typeof IngredientsIngredientNameIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ingredients/$ingredientName': {
-      id: '/ingredients/$ingredientName'
-      path: '/ingredients/$ingredientName'
-      fullPath: '/ingredients/$ingredientName'
-      preLoaderRoute: typeof IngredientsIngredientNameRouteImport
+    '/ingredients/$ingredientName/meals/$mealId': {
+      id: '/ingredients/$ingredientName/meals/$mealId'
+      path: '/ingredients/$ingredientName/meals/$mealId'
+      fullPath: '/ingredients/$ingredientName/meals/$mealId'
+      preLoaderRoute: typeof IngredientsIngredientNameMealsMealIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -114,9 +119,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  IngredientsIngredientNameRoute: IngredientsIngredientNameRoute,
-  MealsMealIdRoute: MealsMealIdRoute,
   IngredientsIndexRoute: IngredientsIndexRoute,
+  IngredientsIngredientNameIndexRoute: IngredientsIngredientNameIndexRoute,
+  IngredientsIngredientNameMealsMealIdRoute:
+    IngredientsIngredientNameMealsMealIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

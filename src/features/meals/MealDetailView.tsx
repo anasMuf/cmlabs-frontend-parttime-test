@@ -7,9 +7,13 @@ import { useMealDetail } from "#/hooks/use-meal-detail";
 
 interface MealDetailViewProps {
 	mealId: string;
+	ingredientName: string;
 }
 
-function MealContent({ mealId }: { mealId: string }) {
+function MealContent({
+	mealId,
+	ingredientName,
+}: { mealId: string; ingredientName: string }) {
 	const { data: meal } = useMealDetail(mealId);
 	if (!meal) return null;
 
@@ -19,6 +23,10 @@ function MealContent({ mealId }: { mealId: string }) {
 				items={[
 					{ label: "Home", to: "/" },
 					{ label: "Ingredients", to: "/ingredients" },
+					{
+						label: ingredientName,
+						to: `/ingredients/${encodeURIComponent(ingredientName)}`,
+					},
 					{ label: meal.strMeal },
 				]}
 			/>
@@ -28,12 +36,15 @@ function MealContent({ mealId }: { mealId: string }) {
 	);
 }
 
-export default function MealDetailView({ mealId }: MealDetailViewProps) {
+export default function MealDetailView({
+	mealId,
+	ingredientName,
+}: MealDetailViewProps) {
 	return (
 		<main className="page-wrap py-12">
 			<div className="container mx-auto px-4">
 				<Suspense fallback={<MealInfoSkeleton />}>
-					<MealContent mealId={mealId} />
+					<MealContent mealId={mealId} ingredientName={ingredientName} />
 				</Suspense>
 			</div>
 		</main>

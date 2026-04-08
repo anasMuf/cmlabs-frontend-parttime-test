@@ -4,13 +4,19 @@ interface MealCardProps {
 	id: string;
 	name: string;
 	thumbnail: string;
+	ingredientName: string;
 }
 
-export default function MealCard({ id, name, thumbnail }: MealCardProps) {
+export default function MealCard({
+	id,
+	name,
+	thumbnail,
+	ingredientName,
+}: MealCardProps) {
 	return (
 		<Link
-			to="/meals/$mealId"
-			params={{ mealId: id }}
+			to="/ingredients/$ingredientName/meals/$mealId"
+			params={{ ingredientName, mealId: id }}
 			className="group relative block overflow-hidden rounded-2xl aspect-video no-underline"
 		>
 			<img

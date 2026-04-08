@@ -4,9 +4,14 @@ import MealCard from "../molecules/MealCard";
 interface MealGridProps {
 	meals: MealSummary[];
 	searchQuery: string;
+	ingredientName: string;
 }
 
-export default function MealGrid({ meals, searchQuery }: MealGridProps) {
+export default function MealGrid({
+	meals,
+	searchQuery,
+	ingredientName,
+}: MealGridProps) {
 	const filteredMeals = meals.filter((meal) =>
 		meal.strMeal.toLowerCase().includes(searchQuery.toLowerCase()),
 	);
@@ -33,6 +38,7 @@ export default function MealGrid({ meals, searchQuery }: MealGridProps) {
 						id={meal.idMeal}
 						name={meal.strMeal}
 						thumbnail={meal.strMealThumb}
+						ingredientName={ingredientName}
 					/>
 				</div>
 			))}
